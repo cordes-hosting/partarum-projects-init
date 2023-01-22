@@ -25,32 +25,31 @@ function loadSystem() {
 
   git clone https://github.com/partarum/dev.partarum.download.git lastRep
 
-  git status &> log/initPartarum/status.txt
+  git status &> ../log/initPartarum/status.txt
 
   cd ..
 
   cd ..
+
+  mv README.md .partarumGhost/README.md
 
   rsync -a -p --exclude-from=.partarumGhost/bin/rsync_exclude .partarumGhost/gitHolder/lastRep/ .
 
-  mv README.md .partarumGhost/README.md
-  mv initPartarumDev .partarumGhost/bin/initPartarumDev
+  git add --all .partarumGhost/
+  git add --all API/
+  git add --all app/
+  git add --all cli/
+  git add --all config/
+  git add --all Partarum/
+  git add --all public/
 
-  #git add --all .partarumGhost/
-  #git add --all API/
-  #git add --all app/
-  #git add --all cli/
-  #git add --all config/
-  #git add --all Partarum/
-  #git add --all public/
-
-  #git add .gitignore
-  #git add .htaccess
-  #git add composer.json
-  #git add composer.lock
-  #git add index.php
-  #git add LICENSE
-  #git add README.md
+  git add .gitignore
+  git add .htaccess
+  git add composer.json
+  git add composer.lock
+  git add index.php
+  git add LICENSE
+  git add README.md
 
 }
 
