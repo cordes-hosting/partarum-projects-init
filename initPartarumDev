@@ -1,0 +1,69 @@
+#!/bin/bash
+#
+# All Files for /usr/local/bin should be declare here for global use
+# Copyright 2022 bombi
+
+function loadSystem() {
+
+  if [[ "$(which git)"  == "" ]];
+  then
+    echo "git is not installed"
+    echo "install git"
+    sudo apt install -y git || exit 0
+  else
+    echo "git is installed"
+  fi
+
+  mkdir .partarumGhost
+
+  cd .partarumGhost || exit
+
+  mkdir gitHolder
+
+  mkdir bin
+
+  mkdir -p log/initPartarum
+
+  git status &> log/initPartarum/statusStart.txt
+
+  cd gitHolder || exit
+
+  mkdir lastRep
+
+  git clone https://github.com/partarum/dev.partarum.download.git lastRep
+
+  git status &> log/initPartarum/status.txt
+
+  cd ..
+
+  cd ..
+
+  rsync -a -p --exclude-from=.partarumGhost/bin/rsync_exclude .partarumGhost/gitHolder/lastRep/ .
+
+  mv README.md .partarumGhost/README.md
+  mv initPartarumDev .partarumGhost/bin/initPartarumDev
+
+  #git add --all .partarumGhost/
+  #git add --all API/
+  #git add --all app/
+  #git add --all cli/
+  #git add --all config/
+  #git add --all Partarum/
+  #git add --all public/
+
+  #git add .gitignore
+  #git add .htaccess
+  #git add composer.json
+  #git add composer.lock
+  #git add index.php
+  #git add LICENSE
+  #git add README.md
+
+}
+
+function main() {
+
+  loadSystem "$@"
+}
+
+main "$@"
