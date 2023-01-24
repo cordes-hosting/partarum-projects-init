@@ -14,16 +14,13 @@ function loadSystem() {
     echo "git is installed"
   fi
 
-
   cd .partarumGhost || exit
 
   git status &> log/initPartarum/statusStart.txt
 
   cd gitHolder || exit
 
-  mkdir lastRep
-
-  git clone https://github.com/partarum/dev.partarum.download.git lastRep
+  git clone https://github.com/partarum/dev.partarum.download.git
 
   git status &> ../log/initPartarum/status.txt
 
@@ -33,7 +30,7 @@ function loadSystem() {
 
   mv README.md .partarumGhost/README.md
 
-  rsync -a -p --exclude-from=.partarumGhost/bin/rsync_exclude .partarumGhost/gitHolder/lastRep/ .
+  rsync -a -p --exclude-from=.partarumGhost/bin/rsync_exclude .partarumGhost/gitHolder/dev.partarum.download/ .
 
   git add --all .partarumGhost/
   git add --all API/
