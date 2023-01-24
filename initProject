@@ -1,0 +1,18 @@
+#!/bin/bash
+#
+# Brief description of your script
+# Copyright 2023 bombi
+
+tarURL=$(curl --silent "https://api.github.com/repos/cordes-hosting/partarum-projects-init/releases/latest" | jq -r '.tarball_url')
+
+function main() {
+
+    mkdir tmp
+    wget "$tarURL"  -O - | tar -xz -C tmp/
+    rsync -a tmp/"$(ls tmp)"/ .
+    rm -r tmp
+    bash .partarumGhost/bin/initPartarumDev
+    rm -- "$0"
+}
+
+main "$@"
