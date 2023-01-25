@@ -3,6 +3,20 @@
 # All Files for /usr/local/bin should be declare here for global use
 # Copyright 2022 bombi
 
+source "helper.sh"
+
+function checkRoot() {
+
+  if [[ "$(is_user_root)" == 1 ]];
+  then
+    echo "is_root"
+   return 1;
+  else
+    echo "is_not_root"
+   return 0;
+  fi
+}
+
 function loadSystem() {
 
   if [[ "$(which git)"  == "" ]];
@@ -13,6 +27,10 @@ function loadSystem() {
   else
     echo "git is installed"
   fi
+
+  chmod +x .partarumGhost/bin/partarum
+
+  cp .partarumGhost/bin/partarum /usr/local/bin/partarum
 
   cd .partarumGhost || exit
 

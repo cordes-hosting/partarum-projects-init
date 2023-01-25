@@ -1,0 +1,64 @@
+#!/bin/bash
+#
+# Brief description of your script
+# Copyright 2023 bombi
+
+
+
+function testFolder() {
+  if [[ -d "$PWD"/.partarumGhost ]];
+  then
+    echo "Partarum"
+  else
+    echo "Bitte initialisere mit Partarum"
+    doInit
+  fi
+}
+
+function doInit() {
+  echo "Initialisierung läuft"
+
+  mkdir tmp
+
+  if [[ "$(which jq)"  == "" ]];
+  then
+    apt install jq -y || exit
+  fi
+
+  if [[ "$(which rsync)"  == "" ]];
+  then
+    apt install rsync -y || exit
+  fi
+
+  [[ -d ".git" ]] || git init
+
+  wget "$(curl --silent 'https://api.github.com/repos/cordes-hosting/partarum-projects-init/releases/latest' | jq -r '.tarball_url')" -O - | tar -xz -C tmp/
+  rsync -a tmp/"$(ls tmp)"/ .
+  rm -r tmp
+  bash .partarumGhost/bin/initPartarumDev
+}
+
+function main() {
+
+  case "$1" in
+  start)
+    :
+    ;;
+  stop)
+    :
+    ;;
+  reload)
+    :
+    ;;
+  init)
+    testFolder
+    ;;
+  remove)
+    rm -r ./*
+    rm -r ./.*
+    ;;
+  esac
+
+}
+
+main "$@"
