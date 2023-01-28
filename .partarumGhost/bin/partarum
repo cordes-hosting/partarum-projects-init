@@ -3,7 +3,7 @@
 # Brief description of your script
 # Copyright 2023 bombi
 
-
+source "helper.sh"
 
 function testFolder() {
   if [[ -d "$PWD"/.partarumGhost ]];
@@ -38,6 +38,33 @@ function doInit() {
   bash .partarumGhost/bin/initPartarumDev
 }
 
+function doInitDev() {
+  :
+}
+
+function doInitQas() {
+  :
+}
+
+function doInitPrd() {
+  :
+}
+
+function doStart() {
+  :
+}
+
+function doStop() {
+  :
+}
+
+function doReload() {
+  :
+}
+
+function doRemove() {
+  :
+}
 function main() {
 
   case "$1" in
@@ -52,6 +79,12 @@ function main() {
     ;;
   init)
     testFolder
+    ;;
+  init-dev)
+    :
+    ;;
+  init-qas)
+    :
     ;;
   remove)
     rm -r ./*

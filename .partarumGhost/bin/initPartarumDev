@@ -30,6 +30,8 @@ function loadSystem() {
 
   chmod +x .partarumGhost/bin/partarum
 
+  [[ -d /home/.partarum ]] || mkdir /home/.partarum
+
   cp .partarumGhost/bin/partarum /usr/local/bin/partarum
 
   cd .partarumGhost || exit
